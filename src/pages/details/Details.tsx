@@ -26,6 +26,9 @@ const Details = (props: Props) => {
         if (id) {
             setCurrentBlog(blog.find(item => item.id === parseInt(id)))
         }
+        return () => {
+            setCurrentBlog(undefined)
+        }
     }, [location])
     return (
         <>

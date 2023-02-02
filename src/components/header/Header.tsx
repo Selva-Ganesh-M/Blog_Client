@@ -8,42 +8,15 @@ import User from '../user/user'
 type Props = {}
 
 const Header = (props: Props) => {
-    //#region : declarations
-
-    //#endregion
-
-    //#region : custom-declarations
-
-    //#endregion
-
-    //#region : side-effects
-    // navbar fixer
-    // useEffect(() => {
-    //     const handleScroll = () => {
-    //         const header = document.querySelector(".header") as HTMLDivElement
-    //         header?.classList.toggle("active", window.scrollY > 100)
-    //     }
-    //     window.addEventListener("scroll", handleScroll)
-    //     return () => {
-    //         window.removeEventListener("scroll", handleScroll)
-    //     }
-    // }, [])
-    //#endregion
-
-    //#region : functions
-
-    //#endregion
-
-    //jsx rendering
     return (
         <>
             {/* header */}
             <header className='header'>
                 <div className="container flex">
                     {/* logo container */}
-                    <div className="logo">
+                    <Link to="/" className="logo">
                         <img src={logo} alt="logo" width={"100px"} />
-                    </div>
+                    </Link>
 
                     {/* nav links container */}
                     <nav>

@@ -7,6 +7,7 @@ import { BsBagCheck } from "react-icons/bs"
 import { AiOutlineHeart } from "react-icons/ai"
 import { GrHelp } from "react-icons/gr"
 import { BiLogOut } from "react-icons/bi"
+import { FaUserAlt } from "react-icons/fa"
 
 type Props = {}
 
@@ -16,7 +17,7 @@ const user = (props: Props) => {
   //#endregion
 
   //#region : custom-declarations
-  const user = true
+  const user = false
   const [isProfileOpen, setIsProfileOpen] = useState<Boolean>(false)
   //#endregion
 
@@ -84,7 +85,7 @@ const user = (props: Props) => {
 
             </>
           ) : (
-            <Link to="/login" style={{ color: "inherit" }}>My Account</Link>
+            <Link to="/login" style={{ color: "inherit" }}><FaUserAlt /></Link>
           )
         }
       </div>
