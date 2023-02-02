@@ -10,7 +10,9 @@
     background-color: #f9f9f9;
     color: #000;
     height: 100vh;
+    max-width: 100vw;
     overflow-y: scroll;
+    overflow-x: hidden;
   }
   h1,
   h2 {
