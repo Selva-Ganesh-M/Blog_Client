@@ -1,0 +1,58 @@
+.profile {
+    margin-left: 3opx;
+    cursor: pointer;
+}
+
+.profile .image {
+    display: flex;
+    padding-bottom: 20px;
+}
+.profile .image img{
+    margin-right: 20px;
+}
+
+.profile button {
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.profile img{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.openProfile {
+    color: #000;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 8%);
+    position: absolute;
+    top: 70px; 
+    right: 20px;
+    border: 1px solid red;
+    width: 250px;
+    background-color: #fff;
+}
+
+.openProfile .box {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-top: 10px;
+    padding: 5px;
+    transition: 0.5 ;
+}
+
+.openProfile .icon {
+    font-size: 20px;
+    margin-right: 0.5rem;
+}
+
+.openProfile h4 {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.openProfile button:hover {
+    background-color: rgba(147, 75, 255, 0.075);
+}

@@ -1,0 +1,32 @@
+header {
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 8%);
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 44;
+}
+
+nav ul {
+    display: flex;
+}
+
+nav ul li {
+    margin-right: 30px;
+    text-decoration: none;
+    color: inherit;
+}
+
+nav ul li a {
+    text-transform: capitalize;
+    color: #000;
+    font-size: 15px;
+}
+
+.active {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
