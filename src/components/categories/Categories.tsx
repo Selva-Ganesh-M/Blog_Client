@@ -12,8 +12,8 @@ type Props = {}
 const SampleNextArrow = (props: any) => {
     const { onClick } = props
     return (
-        <div className="control-button next" onClick={onClick}>
-            <button className='next-btn'>
+        <div className="control-button next">
+            <button className='next-btn' onClick={onClick}>
                 <MdNavigateNext className={"icon"} />
             </button>
         </div>
@@ -23,8 +23,8 @@ const SampleNextArrow = (props: any) => {
 const SampleBeforeArrow = (props: any) => {
     const { onClick } = props
     return (
-        <div className="control-button before" onClick={onClick}>
-            <button className='before-btn'>
+        <div className="control-button before" >
+            <button className='before-btn' onClick={onClick}>
                 <MdNavigateBefore className={"icon"} />
             </button>
         </div>

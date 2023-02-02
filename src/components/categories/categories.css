@@ -50,7 +50,6 @@
 .control-button.next {
     width: 30px;
     height: 100%;
-    cursor: pointer;
     position: absolute;
     z-index: 10;
     top: 0;
@@ -63,7 +62,6 @@
 .control-button.before {
     width: 30px;
     height: 100%;
-    cursor: pointer;
     position: absolute;
     z-index: 10;
     top: 0;
@@ -80,4 +78,5 @@
     border-radius: 50%;
     display: flex;
     align-items: center;justify-content: center;
+    cursor: pointer;
 }

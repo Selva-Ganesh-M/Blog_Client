@@ -47,7 +47,7 @@ const user = (props: Props) => {
                           <img src="https://images.pexels.com/photos/1097456/pexels-photo-1097456.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" />
                         </div>
                         <div className="text">
-                          <h4>Selva Ganesh M</h4>
+                          <h4 className="username">Selva Ganesh M</h4>
                           <p>tuticorin, TN</p>
                         </div>
                       </div>
