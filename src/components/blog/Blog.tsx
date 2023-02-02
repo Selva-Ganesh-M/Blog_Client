@@ -12,7 +12,8 @@ const Blog = (props: Props) => {
             <div className="container grid3">
                 {
                     blog.map(item => (
-                        <div className="box boxItems" key={item.id}>
+                        // individual blogs
+                        <Link to={`/details/${item.id}`} className="box boxItems" key={item.id} >
                             <div className="img">
                                 <img src={item.cover} alt="blog image" />
                             </div>
@@ -21,20 +22,26 @@ const Blog = (props: Props) => {
                                     <AiOutlineTags className='icon' />
                                     <a href="#">{item.category}</a>
                                 </div>
-                                <Link style={{ color: "inherit" }} to={`/details/${item.id}`}>
+                                <Link style={{ color: "#000" }} to={`/details/${item.id}`}>
                                     <h3>{item.title}</h3>
                                 </Link>
                                 <p>{item.desc.slice(0, 180)}...</p>
                                 <div className="date">
-                                    <AiOutlineClockCircle className="icon" />
-                                    <label>{item.date}</label>
-                                    <AiOutlineComment className="icon" />
-                                    <label>27</label>
-                                    <AiOutlineShareAlt className="icon" />
-                                    <label>SHARE</label>
+                                    <div>
+                                        <AiOutlineClockCircle className="icon" />
+                                        <label>{item.date}</label>
+                                    </div>
+                                    <div>
+                                        <AiOutlineComment className="icon" />
+                                        <label>27</label>
+                                    </div>
+                                    <div>
+                                        <AiOutlineShareAlt className="icon" />
+                                        <label>SHARE</label>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </Link>
                     ))
                 }
             </div>

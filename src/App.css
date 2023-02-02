@@ -1,18 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap');
 
-* {
+*{
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-  }
+}
+
+
   body {
     font-family: "Poppins", sans-serif;
     background-color: #f9f9f9;
     color: #000;
     height: 100vh;
     max-width: 100vw;
-    overflow-y: scroll;
-    overflow-x: hidden;
   }
   h1,
   h2 {
@@ -66,8 +66,67 @@
     background: #fff;
   }
 
+  .button {
+    background: #000;
+    border: 1px solid #212121;
+    border-radius: 6px;
+    color: #fff;
+    cursor: pointer;
+    font-weight: 400;
+    height: 48px;
+  }
+
   @media screen and (max-width: 768px) {
+    /* header */
     nav {
       display: none;
     }
+
+    /* home page */
+    .grid3 {
+      grid-template-columns: repeat(2, 45%);
+    }
+
+    .blog .container {
+      width: 95%;
+      margin: 0 auto;
+    }
+
+
+    /* details page */
+    .tanda {
+      flex-direction: column;
+      gap: 20px;
+      align-items: start !important;
+    }
+    .tanda h1 {
+      order: 3;
+      text-align: start;
+      margin-left: none;
+    }
+
+    .tanda .buttons {
+      align-self: start;
+      order: 2;
+    }
+
+    .tanda .button:nth-child(1) {
+      margin-left: 0;
+    }
+    .tanda .buttons .button {
+      font-size: 14px;
+      height: 12px;
+    }
   }
+
+@media screen and (max-width: 925px) {
+  .grid3 {
+    grid-template-columns: repeat(2, 45%);
+  }
+}
+
+@media screen and (max-width: 609px) {
+  .grid3 {
+    grid-template-columns: 1fr;
+  }
+}

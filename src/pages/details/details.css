@@ -1,0 +1,67 @@
+.detailSection {
+    background: #fff;
+    margin: 50px 0;
+}
+
+.detailSection .container {
+    width: 90%;
+    margin: 0 auto;
+    padding: 0 0 2em 0;
+}
+
+.detailSection .right {
+    margin-top: 30px;
+}
+
+.detailSection img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 1em 1em 0 0;
+}
+
+.detailSection h1 {
+    font-size: 26px;
+    font-weight: 600;
+}
+
+.detailSection p {
+    font-size: 15px;
+    margin: 10px 0;
+    line-height: 2;
+    text-transform: capitalize;
+}
+
+.detailSection .buttons {
+    display: flex;
+    justify-content: end;
+    flex-shrink: 1;
+}
+
+.detailSection .button {
+    margin-left: 20px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 28px;
+    font-size: 1.5em;
+}
+
+.detailSection .button:nth-child(1) {
+    background-color: #10ac84;
+}
+
+.detailSection .button:nth-child(2) {
+    background-color: #ee5253;
+}
+
+.tanda {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tanda h1 {
+    flex: 2
+}
