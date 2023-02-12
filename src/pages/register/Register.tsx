@@ -1,17 +1,17 @@
 import React from 'react'
-import "./login.css"
+import "./register.css"
 import image from "../../assets/images/input.png"
 import loginBanner from "../../assets/images/my-account.jpg"
 
 type Props = {}
 
-const Login = (props: Props) => {
+const Register = (props: Props) => {
     return (
         <section className="accountInfo">
             <div className="banner">
                 <img src={loginBanner} alt="login-banner" />
                 <div className="banner-overlay">
-                    <h1>Login</h1>
+                    <h1>Register</h1>
                 </div>
             </div>
             <div className="inner">
@@ -25,15 +25,19 @@ const Login = (props: Props) => {
                             </div>
                         </div>
                         <div className="right">
+                            <input type="full name" placeholder='user name' />
                             <input type="email" placeholder='email' />
                             <input type="password" placeholder='password' />
-                            <button className="button">Login</button>
+                            <button className="button">SignUP</button>
                         </div>
                     </div>
+
+                    {/* login switch */}
+                    <a>Already have an accout. Click here to Login.</a>
                 </div>
             </div>
         </section>
     )
 }
 
-export default Login
+export default Register
