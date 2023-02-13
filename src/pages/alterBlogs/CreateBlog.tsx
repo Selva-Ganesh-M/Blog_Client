@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup"
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import "./createBlog.css"
+import { app } from '../../firebase/firebase';
 
 
 type Props = {}
@@ -10,13 +12,16 @@ type TBlog = { title: string, content: string, tags: string }
 
 const CreateBlog = (props: Props) => {
 
-
+    // declarations
+    const [image, setImage] = useState<any>(null)
+    const [imagePer, setImagePer] = useState<number>(0)
+    const [imgUrl, setImgUrl] = useState<string>('')
 
     // formik handling
     const initialValues = {
         title: "",
         content: "",
-        tags: ""
+        tags: "",
     }
 
     const validationSchema = Yup.object().shape({
@@ -30,10 +35,54 @@ const CreateBlog = (props: Props) => {
     };
 
     const handleFormSubmit = async (values: TBlog, { setSubmitting, resetForm }: any) => {
-        console.log(values);
+        console.log({ ...values, image, imgUrl });
     }
 
 
+
+    // functions
+    // handle firebase image upload
+    const uploadFile = async (file: File) => {
+        const storage = getStorage(app);
+        const fileName = new Date().toString() + file.name
+        const storageRef = ref(storage, "blogImages/" + fileName);
+
+        const uploadTask = uploadBytesResumable(storageRef, file);
+
+        uploadTask.on('state_changed',
+            (snapshot) => {
+                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                setImagePer(progress)
+                switch (snapshot.state) {
+                    case 'paused':
+                        console.log('Upload is paused');
+                        break;
+                    case 'running':
+                        console.log('Upload is running');
+                        break;
+                    default:
+                        break;
+                }
+            },
+            (error) => {
+                // Handle unsuccessful uploads
+            },
+            () => {
+                getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                    setImgUrl(downloadURL)
+                });
+            }
+        );
+    }
+
+    useEffect(() => {
+        // uploading img to firebase
+        image && uploadFile(image)
+
+        return () => {
+            setImage("")
+        }
+    }, [image])
 
 
     return (
@@ -76,7 +125,7 @@ const CreateBlog = (props: Props) => {
                                 {/* content */}
                                 <div className="item">
                                     <textarea
-                                        rows={10}
+                                        rows={5}
                                         className="field "
                                         name="content"
                                         placeholder="content"
@@ -101,6 +150,30 @@ const CreateBlog = (props: Props) => {
                                 </div>
                                 <ErrorMessage name={"username"}>{customError}</ErrorMessage>
 
+
+                                {/* image */}
+                                <div className="image__upload-container">
+
+                                    {/* upload meter */}
+                                    <div>{imagePer}%</div>
+
+                                    <input
+                                        style={{
+                                            marginBottom: "1rem"
+                                        }}
+                                        className='image_input'
+                                        type="file"
+                                        name="image"
+                                        id="image"
+                                        onChange={(e) => {
+                                            console.log(e.target.files);
+                                            e.target.files ? setImage(e.target.files[0]) : ""
+                                        }
+                                        }
+                                    />
+
+
+                                </div>
 
                                 {/* create button */}
                                 <button type="submit" className='submit-btn' >
