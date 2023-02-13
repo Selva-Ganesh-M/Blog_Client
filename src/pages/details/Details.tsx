@@ -6,7 +6,6 @@ import { AiOutlineDelete } from "react-icons/ai"
 
 import "./details.css"
 
-
 type Props = {}
 
 export type TBlog = {
@@ -18,9 +17,16 @@ export type TBlog = {
     date: string;
 }
 
+// functional components
 const Details = (props: Props) => {
+
+    // declarations
     const { id } = useParams()
+    console.log("id", id);
+
+    // states
     const [currentBlog, setCurrentBlog] = useState<TBlog>()
+
     // side effects
     useEffect(() => {
         if (id) {
@@ -30,6 +36,8 @@ const Details = (props: Props) => {
             setCurrentBlog(undefined)
         }
     }, [location])
+
+    // return jsx
     return (
         <>
             {

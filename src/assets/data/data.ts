@@ -2,7 +2,7 @@ export const nav = [
   {
     id: 1,
     text: "home",
-    url: "/",
+    url: "/blogs",
   },
   {
     id: 2,
@@ -17,14 +17,14 @@ export const nav = [
   {
     id: 4,
     text: "blog",
-    url: "/blog",
+    url: "/blogs/create",
   },
   {
     id: 5,
     text: "contact",
     url: "/contact",
   },
-]
+];
 export const category = [
   {
     id: 1,
@@ -74,7 +74,7 @@ export const category = [
     title: "There's always light at the end of the tunnel",
     cover: "../images/category/ca8.png",
   },
-]
+];
 export const blog = [
   {
     id: 1,
@@ -158,4 +158,4 @@ export const blog = [
     cover: "../images/blogs/b10.jpg",
     date: "February 20, 2018",
   },
-]
+];

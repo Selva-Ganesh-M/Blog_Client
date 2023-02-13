@@ -21,7 +21,7 @@ const Router = () => {
                 // index
                 {
                     index: true,
-                    element: <Navigate to="/auth/login" />,
+                    element: <Navigate to="/auth/login" replace />,
                 },
                 // auth layout
                 {
@@ -45,16 +45,27 @@ const Router = () => {
 
                 // home layout
                 {
-                    path: "home",
+                    path: "blogs",
                     element: <HomeLayout />,
                     children: [
                         {
-                            path: "blogs",
+                            index: true,
                             element: <Home />
                         },
+                        // read details
                         {
-                            path: "blogs/:id",
+                            path: "view/:id",
                             element: <Details />
+                        },
+                        // create blog
+                        {
+                            path: "create",
+                            element: <CreateBlog />
+                        },
+                        // handle rest
+                        {
+                            path: "*",
+                            element: <Navigate replace to={"/home/blogs"} />
                         }
                     ]
                 }
@@ -85,7 +96,7 @@ const UpdateUser = Loadable(
     lazy(() => import("../pages/auth/updateUser/UpdateUser"))
 )
 
-// home pages
+// blogs
 const Home = Loadable(
     lazy(() => import("../pages/home/Home"))
 )
@@ -93,5 +104,11 @@ const Home = Loadable(
 const Details = Loadable(
     lazy(() => import("../pages/details/Details"))
 )
+
+const CreateBlog = Loadable(
+    lazy(() => import("../pages/alterBlogs/CreateBlog"))
+)
+
+
 
 export default Router

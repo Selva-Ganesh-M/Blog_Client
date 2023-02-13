@@ -14,7 +14,7 @@ const Header = (props: Props) => {
             <header className='header'>
                 <div className="container flex">
                     {/* logo container */}
-                    <Link to="/" className="logo">
+                    <Link to="/blogs" className="logo">
                         <img src={logo} alt="logo" width={"100px"} />
                     </Link>
 
