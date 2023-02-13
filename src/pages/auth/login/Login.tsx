@@ -1,7 +1,7 @@
 import React from 'react'
 import "./login.css"
-import image from "../../assets/images/input.png"
-import loginBanner from "../../assets/images/my-account.jpg"
+import image from "../../../assets/images/input.png"
+import loginBanner from "../../../assets/images/my-account.jpg"
 
 type Props = {}
 
