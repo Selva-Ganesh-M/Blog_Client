@@ -4,6 +4,7 @@ import * as Yup from "yup"
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import "./createBlog.css"
 import { app } from '../../firebase/firebase';
+import { useNavigate } from 'react-router-dom';
 
 
 type Props = {}
@@ -11,6 +12,8 @@ type Props = {}
 type TBlog = { title: string, content: string, tags: string }
 
 const CreateBlog = (props: Props) => {
+    // grabbing
+    const navigate = useNavigate()
 
     // declarations
     const [image, setImage] = useState<any>(null)
@@ -36,6 +39,9 @@ const CreateBlog = (props: Props) => {
 
     const handleFormSubmit = async (values: TBlog, { setSubmitting, resetForm }: any) => {
         console.log({ ...values, image, imgUrl });
+        resetForm();
+        navigate("/blogs")
+
     }
 
 
@@ -81,6 +87,7 @@ const CreateBlog = (props: Props) => {
 
         return () => {
             setImage("")
+            setImagePer(0)
         }
     }, [image])
 
