@@ -2,6 +2,7 @@ import React from 'react'
 import "./login.css"
 import image from "../../../assets/images/input.png"
 import loginBanner from "../../../assets/images/my-account.jpg"
+import { Link } from 'react-router-dom'
 
 type Props = {}
 
@@ -28,6 +29,9 @@ const Login = (props: Props) => {
                             <input type="email" placeholder='email' />
                             <input type="password" placeholder='password' />
                             <button className="button">Login</button>
+                            {/* login switch */}
+                            <span className='loginText' >Don't have an account?
+                                Click here to <Link to={"/auth/register"}> Register.</Link></span>
                         </div>
                     </div>
                 </div>

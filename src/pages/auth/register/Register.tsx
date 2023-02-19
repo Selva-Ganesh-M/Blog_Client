@@ -2,6 +2,7 @@ import React from 'react'
 import "./register.css"
 import image from "../../../assets/images/input.png"
 import loginBanner from "../../../assets/images/my-account.jpg"
+import { Link } from 'react-router-dom'
 
 type Props = {}
 
@@ -29,13 +30,11 @@ const Register = (props: Props) => {
                             <input type="email" placeholder='email' />
                             <input type="password" placeholder='password' />
                             <button className="button">Sign Up</button>
+                            {/* login switch */}
+                            <span className='loginText' >Already have an account?
+                                Click here to <Link to={"/auth/login"}> Login.</Link></span>
                         </div>
                     </div>
-
-                    {/* login switch */}
-                    <span>Already have an account? <a>
-                        Click here to Login.
-                    </a></span>
                 </div>
             </div>
         </section>
