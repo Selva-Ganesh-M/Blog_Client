@@ -1,0 +1,60 @@
+.new__Blog {
+  width: 50%;
+  margin: 0 auto;
+  margin-top: 3rem;
+}
+
+.new__Blog h1 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.new__Blog .field {
+  border: 1px solid #333;
+  margin-bottom: 1rem;
+  padding: 1rem 1rem;
+  width: 100%;
+  font-size: 1rem;
+}
+
+.new__blog-form form {
+  padding: 3rem;
+}
+
+.new__blog-form .item textarea {
+  font-family: inherit;
+  resize: none;
+}
+
+.new__blog-form .item textarea::placeholder {
+  font-size: inherit;
+}
+
+.new__blog-form .submit-btn {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1rem;
+  background-color: black;
+  color: white;
+}
+
+.form .image__upload-container {
+  display: flex;
+  justify-content: flex-start;
+  column-gap: 1rem;
+}
+
+@media screen and (max-width: 769px) {
+  .new__Blog {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 426px) {
+  .new__Blog {
+    width: 90%;
+  }
+  .new__blog-form form {
+    padding: 1.5rem;
+  }
+}

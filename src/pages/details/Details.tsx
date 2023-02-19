@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { blog } from '../../assets/data/data'
 import { BsPencilSquare } from "react-icons/bs"
 import { AiOutlineDelete } from "react-icons/ai"
@@ -56,9 +56,11 @@ const Details = (props: Props) => {
                                 <div className='tanda'>
                                     <h1>{currentBlog.title}</h1>
                                     <div className="buttons">
-                                        <button className="button">
-                                            <BsPencilSquare />
-                                        </button>
+                                        <Link to={`/blogs/update/${currentBlog.id}`}>
+                                            <button className="button">
+                                                <BsPencilSquare />
+                                            </button>
+                                        </Link>
                                         <button className="button">
                                             <AiOutlineDelete />
                                         </button>

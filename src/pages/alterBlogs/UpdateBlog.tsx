@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup"
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import "./createBlog.css"
+import "./updateBlog.css"
 import { app } from '../../firebase/firebase';
 import { useNavigate } from 'react-router-dom';
 
@@ -11,7 +11,7 @@ type Props = {}
 
 type TBlog = { title: string, content: string, tags: string }
 
-const CreateBlog = (props: Props) => {
+const UpdateBlog = (props: Props) => {
     // grabbing
     const navigate = useNavigate()
 
@@ -97,7 +97,7 @@ const CreateBlog = (props: Props) => {
             <section className="new__Blog">
                 {/* header */}
                 <div className="new__blog-form">
-                    <h1>Create New Blog </h1>
+                    <h1>Update Blog </h1>
                     <Formik
                         onSubmit={handleFormSubmit}
                         initialValues={initialValues}
@@ -184,7 +184,7 @@ const CreateBlog = (props: Props) => {
 
                                 {/* create button */}
                                 <button type="submit" className='submit-btn' >
-                                    Create
+                                    Update
                                 </button>
 
 
@@ -197,4 +197,4 @@ const CreateBlog = (props: Props) => {
     )
 }
 
-export default CreateBlog
+export default UpdateBlog

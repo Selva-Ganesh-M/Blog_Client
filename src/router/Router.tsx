@@ -62,6 +62,20 @@ const Router = () => {
                             path: "create",
                             element: <CreateBlog />
                         },
+                        // update blog
+                        {
+                            path: "update",
+                            children: [
+                                {
+                                    index: true,
+                                    element: <Navigate to={"/blogs"} />,
+                                },
+                                {
+                                    path: ":id",
+                                    element: <UpdateBlog />
+                                }
+                            ]
+                        },
                         // handle rest
                         {
                             path: "*",
@@ -109,6 +123,9 @@ const CreateBlog = Loadable(
     lazy(() => import("../pages/alterBlogs/CreateBlog"))
 )
 
+const UpdateBlog = Loadable(
+    lazy(() => import("../pages/alterBlogs/UpdateBlog"))
+)
 
 
 export default Router
