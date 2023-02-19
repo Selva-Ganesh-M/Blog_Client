@@ -1,10 +1,10 @@
 .blog {
-  margin: 50px 0;
+  padding: 50px 0;
   width: 100%;
 }
 
 .container {
-  width: 95%;
+  width: 98%;
   margin: auto;
 }
 
@@ -23,7 +23,7 @@
 .grid3 {
   display: grid;
   place-content: center;
-  grid-template-columns: repeat(3, 31%);
+  grid-template-columns: repeat(3, 32%);
   gap: 30px 30px;
 }
 
@@ -79,4 +79,38 @@
 .blog .date div .icon {
   font-size: 1.5em;
   color: #333;
+}
+
+/* reponsive */
+
+/* for tablets */
+@media screen and (max-width: 769px) {
+  .grid3 {
+    display: grid;
+    place-content: center;
+    grid-template-columns: repeat(2, 48%);
+    gap: 30px 30px;
+  }
+}
+
+/* for mobile */
+@media screen and (max-width: 482px) {
+  .grid3 {
+    display: grid;
+    place-content: center;
+    grid-template-columns: repeat(1, 95%);
+    gap: 30px 30px;
+  }
+}
+
+@media screen and (max-width: 915px) and (min-width: 769px) {
+  .blog .date {
+    transform: scale(0.8);
+  }
+}
+
+@media screen and (max-width: 650px) and (min-width: 482px) {
+  .blog .date {
+    transform: scale(0.8);
+  }
 }
