@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import "./user.css"
 import { RiImageAddLine } from "react-icons/ri"
 import { IoSettingsOutline } from "react-icons/io5"
@@ -8,16 +8,20 @@ import { AiOutlineHeart } from "react-icons/ai"
 import { GrHelp } from "react-icons/gr"
 import { BiLogOut } from "react-icons/bi"
 import { FaUserAlt } from "react-icons/fa"
+import { useSelector } from "react-redux/es/exports"
+import { getUser, logout } from "../../redux/slices/userSlice"
+import { useDispatch } from "react-redux/es/hooks/useDispatch"
 
 type Props = {}
 
 const user = (props: Props) => {
   //#region : declarations
-
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   //#endregion
 
   //#region : custom-declarations
-  const user = false
+  const user = useSelector(getUser)
   const [isProfileOpen, setIsProfileOpen] = useState<Boolean>(false)
   //#endregion
 
@@ -26,6 +30,10 @@ const user = (props: Props) => {
   //#endregion
 
   //#region : functions
+  const handleLogout = () => {
+    dispatch(logout())
+    navigate("/auth/login")
+  }
 
   //#endregion
 
@@ -34,7 +42,7 @@ const user = (props: Props) => {
     <>
       <div className="profile">
         {
-          user ? (
+          user.status ? (
             <>
               <button className="img" onClick={() => setIsProfileOpen(prev => !prev)}>
                 <img src="https://images.pexels.com/photos/1097456/pexels-photo-1097456.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" />
@@ -75,7 +83,7 @@ const user = (props: Props) => {
                       <AiOutlineHeart className="icon" />
                       <h4>Whislist</h4>
                     </button>
-                    <button className="box">
+                    <button className="box" onClick={handleLogout} >
                       <BiLogOut className="icon" />
                       <h4>Logout</h4>
                     </button>

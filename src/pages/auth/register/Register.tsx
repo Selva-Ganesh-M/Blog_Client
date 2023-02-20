@@ -1,12 +1,43 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import "./register.css"
 import image from "../../../assets/images/input.png"
 import loginBanner from "../../../assets/images/my-account.jpg"
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux/es/exports'
+import { getUser, registerUser, TRegisterData } from '../../../redux/slices/userSlice'
+import { TStoreDispatch } from '../../../redux/store'
 
 type Props = {}
 
 const Register = (props: Props) => {
+    //#region : declarations
+    const dispatch: TStoreDispatch = useDispatch()
+    const user = useSelector(getUser)
+    const navigate = useNavigate()
+    //#endregion
+
+    //#region : custom-declarations
+    const [input, setInput] = useState<TRegisterData>({ username: "", email: "", password: "" })
+
+    //#endregion
+
+    //#region : side-effects
+    useEffect(() => {
+        user.status ? navigate("/blogs") : null
+        return () => { }
+    }, [user])
+
+
+    //#endregion
+
+    //#region : functions
+    const handleRegister = async () => {
+        await dispatch(registerUser(input))
+    }
+
+    //#endregion
+
+    //jsx rendering
     return (
         <section className="accountInfo">
             <div className="banner">
@@ -26,10 +57,29 @@ const Register = (props: Props) => {
                             </div>
                         </div>
                         <div className="right">
-                            <input type="full name" placeholder='user name' />
-                            <input type="email" placeholder='email' />
-                            <input type="password" placeholder='password' />
-                            <button className="button">Sign Up</button>
+                            {/* username */}
+                            <input type="full name" placeholder='user name' value={input.username} onChange={(e) => setInput(prev => {
+                                return { ...prev, username: e.target.value }
+                            })} />
+                            {/* email */}
+                            <input
+                                type="email"
+                                placeholder='email'
+                                value={input.email}
+                                onChange={(e) => setInput(prev => {
+                                    return { ...prev, email: e.target.value }
+                                })}
+                            />
+                            {/* password */}
+                            <input
+                                type="password"
+                                placeholder='password'
+                                value={input.password}
+                                onChange={(e) => setInput(prev => {
+                                    return { ...prev, password: e.target.value }
+                                })}
+                            />
+                            <button className="button" onClick={handleRegister} >Sign Up</button>
                             {/* login switch */}
                             <span className='loginText' >Already have an account?
                                 Click here to <Link to={"/auth/login"}> Login.</Link></span>

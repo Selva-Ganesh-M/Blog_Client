@@ -1,8 +1,11 @@
 import { lazy, ReactNode, Suspense } from "react"
-import { Navigate, useRoutes } from "react-router-dom"
+import { useSelector } from "react-redux/es/hooks/useSelector"
+import { BrowserRouter, Navigate, Route, Routes, useRoutes } from "react-router-dom"
 import AuthLayout from "../components/Layouts/AuthLayout"
 import HomeLayout from "../components/Layouts/HomeLayout"
 import RegisterLoadingScreen from "../components/loadingScreens/RegisterLoadingScreen"
+import user from "../components/user/user"
+import { getUser } from "../redux/slices/userSlice"
 
 const Loadable = (Component: React.FC) => (props: any) => {
     return (
@@ -13,6 +16,10 @@ const Loadable = (Component: React.FC) => (props: any) => {
 }
 
 const Router = () => {
+    // declarations
+    const user = useSelector(getUser)
+
+    // actual jsx
     return useRoutes([
         // root layout
         {
@@ -46,7 +53,7 @@ const Router = () => {
                 // home layout
                 {
                     path: "blogs",
-                    element: <HomeLayout />,
+                    element: user.status ? <HomeLayout /> : <Navigate to="/auth/login" />,
                     children: [
                         {
                             index: true,

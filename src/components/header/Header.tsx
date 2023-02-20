@@ -4,10 +4,13 @@ import logo from "../../assets/images/logo.svg"
 import { Link } from 'react-router-dom'
 import { nav } from "../../assets/data/data"
 import User from '../user/user'
+import { getUser } from '../../redux/slices/userSlice'
+import { useSelector } from "react-redux";
 
 type Props = {}
 
 const Header = (props: Props) => {
+    const user = useSelector(getUser)
     return (
         <>
             {/* header */}
@@ -19,17 +22,23 @@ const Header = (props: Props) => {
                     </Link>
 
                     {/* nav links container */}
-                    <nav>
-                        <ul>
-                            {nav.map(item => (
-                                <li key={item.id}>
-                                    <Link style={{ color: "inherit" }} to={item.url}>
-                                        {item.text}
-                                    </Link>
-                                </li>
-                            ))}
-                        </ul>
-                    </nav>
+                    {
+                        user.status && (
+                            <nav>
+                                <ul>
+                                    {nav.map(item => (
+                                        <li key={item.id}>
+                                            <Link style={{ color: "inherit" }} to={item.url}>
+                                                {item.text}
+                                            </Link>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </nav>
+                        )
+                    }
+
+                    {/* user img */}
                     <div className="account flexCenter">
                         <User />
                     </div>
