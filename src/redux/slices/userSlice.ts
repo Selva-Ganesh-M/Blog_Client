@@ -43,7 +43,7 @@ export const loginUser = createAsyncThunk(
     // register user
     const res = await api.post<
       TResponse<{ username: string; email: string; _id: string; token: string }>
-    >("/login", data);
+    >("/auth/login", data);
 
     // if failed reject
     if (res.data.statusText !== "success") {

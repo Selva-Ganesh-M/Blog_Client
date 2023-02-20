@@ -33,6 +33,7 @@ const Register = (props: Props) => {
     //#region : functions
     const handleRegister = async () => {
         await dispatch(registerUser(input))
+        setInput({ username: "", email: "", password: "" })
     }
 
     //#endregion
