@@ -4,7 +4,10 @@ import * as Yup from "yup"
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import "./updateBlog.css"
 import { app } from '../../firebase/firebase';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { TStoreDispatch, rootState } from '../../redux/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectPostById, updatePost } from '../../redux/slices/postsSlice';
 
 
 type Props = {}
@@ -14,17 +17,21 @@ type TBlog = { title: string, content: string, tags: string }
 const UpdateBlog = (props: Props) => {
     // grabbing
     const navigate = useNavigate()
+    const { id } = useParams()
+    const dispatch: TStoreDispatch = useDispatch()
+    const post = useSelector((state: rootState) => selectPostById(state, id!))
 
     // declarations
     const [image, setImage] = useState<any>(null)
     const [imagePer, setImagePer] = useState<number>(0)
     const [imgUrl, setImgUrl] = useState<string>('')
 
+
     // formik handling
     const initialValues = {
-        title: "",
-        content: "",
-        tags: "",
+        title: post?.title || "",
+        content: post?.desc || "",
+        tags: post?.category || "",
     }
 
     const validationSchema = Yup.object().shape({
@@ -38,7 +45,15 @@ const UpdateBlog = (props: Props) => {
     };
 
     const handleFormSubmit = async (values: TBlog, { setSubmitting, resetForm }: any) => {
-        console.log({ ...values, image, imgUrl });
+        console.log({ ...values, imgUrl });
+        const data = {
+            title: values.title,
+            category: values.tags,
+            desc: values.content,
+            cover: imagePer === 100 ? imgUrl : undefined,
+            _id: post?._id
+        }
+        await dispatch(updatePost(data))
         resetForm();
         navigate("/blogs")
 

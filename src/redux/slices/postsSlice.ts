@@ -9,13 +9,24 @@ import { TResponse } from "./userSlice";
 
 export type TPost = {
   _id: string;
+
   cover: string;
   category: string;
   title: string;
   desc: string;
+  userId: string;
+
   likes: Array<string>;
   createdAt: Date;
   updatedAt: Date;
+};
+
+export type TPostPrep = {
+  cover: string;
+  category: string;
+  title: string;
+  desc: string;
+  userId: string;
 };
 
 const postAdapter = createEntityAdapter<TPost>({
@@ -46,6 +57,15 @@ const postSlice = createSlice({
         postAdapter.upsertOne(state, action.payload);
       })
       .addCase(dislikePost.fulfilled, (state, action) => {
+        postAdapter.upsertOne(state, action.payload);
+      })
+      .addCase(createPost.fulfilled, (state, action) => {
+        postAdapter.addOne(state, action.payload);
+      })
+      .addCase(deletePost.fulfilled, (state, action) => {
+        postAdapter.removeOne(state, action.payload);
+      })
+      .addCase(updatePost.fulfilled, (state, action) => {
         postAdapter.upsertOne(state, action.payload);
       });
   },
@@ -94,6 +114,49 @@ export const dislikePost = createAsyncThunk(
       return thunkApi.rejectWithValue("");
     } else {
       return thunkApi.fulfillWithValue(res.data.payload);
+    }
+  }
+);
+
+// create post
+export const createPost = createAsyncThunk(
+  "posts/createPost",
+  async (data: TPostPrep, thunkApi) => {
+    const res = await api.post<TResponse<TPost>>("/posts/create", data);
+    if (res.data.statusCode !== 201) {
+      return thunkApi.rejectWithValue("");
+    } else {
+      return thunkApi.fulfillWithValue(res.data.payload);
+    }
+  }
+);
+
+// delete post
+export const deletePost = createAsyncThunk(
+  "posts/deletePost",
+  async (id: string, thunkApi) => {
+    const res = await api.delete<TResponse<TPost>>(`/posts/delete/${id}`);
+    if (res.data.statusCode === 200) {
+      return thunkApi.fulfillWithValue(id);
+    } else {
+      return thunkApi.rejectWithValue(id);
+    }
+  }
+);
+
+// update post
+export const updatePost = createAsyncThunk(
+  "posts/updatePost",
+  async (data: Partial<TPost>, thunkApi) => {
+    const res = await api.patch<TResponse<TPost>>(
+      `/posts/update/${data._id}`,
+      data
+    );
+
+    if (res.data.statusCode === 200) {
+      return thunkApi.fulfillWithValue(res.data.payload);
+    } else {
+      return thunkApi.rejectWithValue(res.data.payload);
     }
   }
 );

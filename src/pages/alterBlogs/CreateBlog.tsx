@@ -5,6 +5,10 @@ import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/
 import "./createBlog.css"
 import { app } from '../../firebase/firebase';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUser } from '../../redux/slices/userSlice';
+import { TStoreDispatch } from '../../redux/store';
+import { createPost } from '../../redux/slices/postsSlice';
 
 
 type Props = {}
@@ -14,6 +18,8 @@ type TBlog = { title: string, content: string, tags: string }
 const CreateBlog = (props: Props) => {
     // grabbing
     const navigate = useNavigate()
+    const user = useSelector(getUser)
+    const dispatch: TStoreDispatch = useDispatch()
 
     // declarations
     const [image, setImage] = useState<any>(null)
@@ -38,10 +44,17 @@ const CreateBlog = (props: Props) => {
     };
 
     const handleFormSubmit = async (values: TBlog, { setSubmitting, resetForm }: any) => {
-        console.log({ ...values, image, imgUrl });
-        resetForm();
-        navigate("/blogs")
-
+        console.log({ ...values, imgUrl, userId: user.details._id });
+        await dispatch(createPost(
+            {
+                title: values.title,
+                category: values.tags,
+                desc: values.content,
+                cover: imgUrl,
+                userId: user.details._id
+            }))
+        // resetForm();
+        // navigate("/blogs")
     }
 
 

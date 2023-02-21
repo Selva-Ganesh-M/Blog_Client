@@ -49,7 +49,7 @@ const SingleBlog = ({ item }: Props) => {
                     <img src={item.cover} alt="blog image" className='zoomingImg  ' />
                 </div>
             </Link>
-            <div className="details">
+            <div className="details" style={{ flex: 1, height: "auto" }} >
 
                 {/* tags */}
                 <div className="tag">
@@ -63,7 +63,7 @@ const SingleBlog = ({ item }: Props) => {
                 </Link>
 
                 {/* desctionption */}
-                <p>{item.desc.slice(0, 180)}...</p>
+                <p style={{ minHeight: "100.5px" }} >{item.desc.slice(0, 180)}...</p>
 
 
 
