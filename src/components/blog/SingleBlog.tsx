@@ -1,23 +1,18 @@
 import React from 'react'
+import { format } from "timeago.js"
 import { AiOutlineClockCircle, AiOutlineComment, AiOutlineShareAlt, AiOutlineTags } from 'react-icons/ai';
 import { Link } from 'react-router-dom'
+import { TPost } from '../../redux/slices/postsSlice';
 
 type Props = {
-    item: {
-        id: number;
-        title: string;
-        desc: string;
-        category: string;
-        cover: string;
-        date: string;
-    }
+    item: TPost
 }
 
 const SingleBlog = ({ item }: Props) => {
     return (
         // individual blogs
-        <div className="box boxItems" key={item.id} >
-            <Link to={`/blogs/view/${item.id}`}>
+        <div className="box boxItems" key={item._id} >
+            <Link to={`/blogs/view/${item._id}`}>
                 <div className="img">
                     <img src={item.cover} alt="blog image" className='zoomingImg  ' />
                 </div>
@@ -31,7 +26,7 @@ const SingleBlog = ({ item }: Props) => {
                 </div>
 
                 {/* title */}
-                <Link style={{ color: "#000" }} to={`/blogs/view/${item.id}`} >
+                <Link style={{ color: "#000" }} to={`/blogs/view/${item._id}`} >
                     <h3>{item.title}</h3>
                 </Link>
 
@@ -43,7 +38,7 @@ const SingleBlog = ({ item }: Props) => {
                 <div className="date">
                     <div>
                         <AiOutlineClockCircle className="icon" />
-                        <label>{item.date}</label>
+                        <label>{format(item.createdAt)}</label>
                     </div>
                     <div>
                         <AiOutlineComment className="icon" />

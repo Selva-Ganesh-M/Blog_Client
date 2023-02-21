@@ -1,41 +1,31 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
-import { blog } from '../../assets/data/data'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { BsPencilSquare } from "react-icons/bs"
 import { AiOutlineDelete } from "react-icons/ai"
+import { selectPostById, TPost } from '../../redux/slices/postsSlice'
+import { rootState } from '../../redux/store'
 
 import "./details.css"
+import { useSelector } from 'react-redux'
 
 type Props = {}
 
-export type TBlog = {
-    id: number,
-    title: string;
-    desc: string;
-    category: string;
-    cover: string;
-    date: string;
-}
 
 // functional components
 const Details = (props: Props) => {
 
     // declarations
+    const navigate = useNavigate()
     const { id } = useParams()
-    console.log("id", id);
+    const currentBlog = useSelector((state: rootState) => selectPostById(state, id!))
+
 
     // states
-    const [currentBlog, setCurrentBlog] = useState<TBlog>()
 
     // side effects
     useEffect(() => {
-        if (id) {
-            setCurrentBlog(blog.find(item => item.id === parseInt(id)))
-        }
-        return () => {
-            setCurrentBlog(undefined)
-        }
-    }, [location])
+        if (!id) navigate("/blogs")
+    }, [])
 
     // return jsx
     return (
@@ -56,7 +46,7 @@ const Details = (props: Props) => {
                                 <div className='tanda'>
                                     <h1>{currentBlog.title}</h1>
                                     <div className="buttons">
-                                        <Link to={`/blogs/update/${currentBlog.id}`}>
+                                        <Link to={`/blogs/update/${currentBlog._id}`}>
                                             <button className="button">
                                                 <BsPencilSquare />
                                             </button>

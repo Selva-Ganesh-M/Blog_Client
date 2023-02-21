@@ -1,20 +1,47 @@
-import React from 'react'
-import { blog } from '../../assets/data/data'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { getAllPosts, getPosts } from '../../redux/slices/postsSlice'
+import { TStoreDispatch } from '../../redux/store'
 import "./blog.css"
-import { AiOutlineTags, AiOutlineClockCircle, AiOutlineComment, AiOutlineShareAlt } from "react-icons/ai"
-import { Link } from 'react-router-dom'
 import SingleBlog from './SingleBlog'
 
 type Props = {}
 
 const Blog = (props: Props) => {
+    //#region : declarations
+    const dispatch: TStoreDispatch = useDispatch()
+    const posts = useSelector(getAllPosts)
+    //#endregion
+
+    //#region : custom-declarations
+
+    //#endregion
+
+    //#region : side-effects
+    useEffect(() => {
+        dispatch(getPosts())
+    }, [])
+
+
+    useEffect(() => {
+        console.log("effect posts:", posts);
+
+    }, [posts])
+    //#endregion
+
+    //#region : functions
+
+    //#endregion
+
+    //jsx rendering
     return (
         <section className="blog">
             <div className="container grid3">
                 {
-                    blog.map((item) => (
-                        <SingleBlog item={item} key={item.id} />
+                    posts.length > 0 ? posts.map((item) => (
+                        <SingleBlog item={item} key={item._id} />
                     ))
+                        : "loading"
                 }
             </div>
         </section>
