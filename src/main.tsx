@@ -4,6 +4,9 @@ import App from './App'
 import { Provider } from 'react-redux'
 import { store, persistor } from './redux/store'
 import { PersistGate } from 'redux-persist/integration/react'
+import { getPosts } from './redux/slices/postsSlice'
+
+store.dispatch(getPosts())
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <Provider store={store}>

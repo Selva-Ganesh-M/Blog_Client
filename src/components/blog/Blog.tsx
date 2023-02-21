@@ -18,15 +18,7 @@ const Blog = (props: Props) => {
     //#endregion
 
     //#region : side-effects
-    useEffect(() => {
-        dispatch(getPosts())
-    }, [])
 
-
-    useEffect(() => {
-        console.log("effect posts:", posts);
-
-    }, [posts])
     //#endregion
 
     //#region : functions

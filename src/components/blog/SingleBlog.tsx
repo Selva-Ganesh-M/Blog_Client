@@ -1,14 +1,46 @@
 import React from 'react'
 import { format } from "timeago.js"
 import { AiOutlineClockCircle, AiOutlineComment, AiOutlineShareAlt, AiOutlineTags } from 'react-icons/ai';
+import { FiThumbsUp } from "react-icons/fi"
+import { FaThumbsUp } from "react-icons/fa"
 import { Link } from 'react-router-dom'
-import { TPost } from '../../redux/slices/postsSlice';
+import { dislikePost, likePost, TPost } from '../../redux/slices/postsSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUser } from '../../redux/slices/userSlice';
+import { TStoreDispatch } from '../../redux/store';
 
 type Props = {
     item: TPost
 }
 
 const SingleBlog = ({ item }: Props) => {
+    //#region : declarations
+    const user = useSelector(getUser)
+    const dispatch: TStoreDispatch = useDispatch()
+    //#endregion
+
+    //#region : custom-declarations
+
+    //#endregion
+
+    //#region : side-effects
+
+    //#endregion
+
+    //#region : functions
+    // handle like
+    const handleLike = () => {
+        dispatch(likePost({ userId: user.details._id, postId: item._id }))
+    }
+
+    // dislike
+    const handleDislike = () => {
+        dispatch(dislikePost({ userId: user.details._id, postId: item._id }))
+    }
+
+    //#endregion
+
+    //jsx rendering
     return (
         // individual blogs
         <div className="box boxItems" key={item._id} >
@@ -41,8 +73,16 @@ const SingleBlog = ({ item }: Props) => {
                         <label>{format(item.createdAt)}</label>
                     </div>
                     <div>
-                        <AiOutlineComment className="icon" />
-                        <label>27</label>
+                        {
+                            item.likes.includes(user.details._id) ? (
+                                // liked
+                                <FaThumbsUp className="icon" onClick={handleDislike} />
+                            ) : (
+                                // disliked
+                                <FiThumbsUp className="icon" onClick={handleLike} />
+                            )
+                        }
+                        <label>{item.likes.length}</label>
                     </div>
                     <div>
                         <AiOutlineShareAlt className="icon" />
@@ -54,4 +94,4 @@ const SingleBlog = ({ item }: Props) => {
     )
 }
 
-export default SingleBlog
+export default React.memo(SingleBlog)
