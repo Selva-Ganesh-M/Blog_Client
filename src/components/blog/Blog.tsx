@@ -32,6 +32,11 @@ const Blog = (props: Props) => {
         } else {
             setContent(posts)
         }
+
+        // clean up
+        return () => {
+            setContent([])
+        }
     }, [location.pathname])
     //#endregion
 
