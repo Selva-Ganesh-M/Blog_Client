@@ -8,7 +8,7 @@ export type TPayload<T> = {
 };
 
 export const api = axios.create({
-  baseURL: "http://localhost:7777/api",
+  baseURL: "https://blog-app-server-m2bg.onrender.com/api",
   // timeout: 1000*3,
   withCredentials: true,
   headers: { "X-Custom-Header": "foobar" },
