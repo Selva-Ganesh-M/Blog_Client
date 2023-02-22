@@ -4,20 +4,23 @@ import { AiOutlineClockCircle, AiOutlineComment, AiOutlineShareAlt, AiOutlineTag
 import { FiThumbsUp } from "react-icons/fi"
 import { FaThumbsUp } from "react-icons/fa"
 import { Link } from 'react-router-dom'
-import { dislikePost, likePost, TPost } from '../../redux/slices/postsSlice';
+import { dislikePost, likePost, selectPostById, TPost } from '../../redux/slices/postsSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser } from '../../redux/slices/userSlice';
-import { TStoreDispatch } from '../../redux/store';
+import { rootState, TStoreDispatch } from '../../redux/store';
 
 type Props = {
-    item: TPost
+    item: string
 }
 
-const SingleBlog = ({ item }: Props) => {
+const SingleBlog = ({ item: id }: Props) => {
     //#region : declarations
     const user = useSelector(getUser)
     const dispatch: TStoreDispatch = useDispatch()
+    const item = useSelector((state: rootState) => selectPostById(state, id))!
     //#endregion
+
+    console.log("single blog re-rendered:", item);
 
     //#region : custom-declarations
 

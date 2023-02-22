@@ -11,6 +11,9 @@ import { rootState } from '../../redux/store'
 type Props = {}
 
 const Blog = (props: Props) => {
+
+
+
     //#region : declarations
     const dispatch: TStoreDispatch = useDispatch()
     const posts = useSelector(getAllPosts)
@@ -18,6 +21,8 @@ const Blog = (props: Props) => {
     const location = useLocation()
     const user = useSelector(getUser)
     //#endregion
+
+    console.log("blog re-rendered:", posts);
 
     //#region : custom-declarations
     const [content, setContent] = useState<TPost[]>([])
@@ -52,7 +57,7 @@ const Blog = (props: Props) => {
                 content.length > 0 ? (
                     <div className="container grid3">
                         {
-                            content.map((item) => <SingleBlog item={item} key={item._id} />)
+                            content.map((item) => <SingleBlog item={item._id} key={item._id} />)
                         }
 
                     </div>
