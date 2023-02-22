@@ -44,8 +44,8 @@ const Details = (props: Props) => {
                         {/* wrapper */}
                         <div className="container">
                             {/* left side */}
-                            <div className="left">
-                                <img src={currentBlog.cover} alt="blog-image" />
+                            <div className="left"  >
+                                <img style={{ backgroundColor: "#999" }} src={currentBlog.cover} alt="blog-image" />
                             </div>
 
                             {/* right side */}

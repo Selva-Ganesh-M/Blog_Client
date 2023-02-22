@@ -12,6 +12,7 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage'
 import postsSlice from "./slices/postsSlice";
+import navSlice from "./slices/navSlice";
 
 
 
@@ -23,7 +24,8 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
     user: userReducer,
-    posts: postsSlice
+    posts: postsSlice,
+    nav: navSlice
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

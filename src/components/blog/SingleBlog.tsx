@@ -20,8 +20,6 @@ const SingleBlog = ({ item: id }: Props) => {
     const item = useSelector((state: rootState) => selectPostById(state, id))!
     //#endregion
 
-    console.log("single blog re-rendered:", item);
-
     //#region : custom-declarations
 
     //#endregion

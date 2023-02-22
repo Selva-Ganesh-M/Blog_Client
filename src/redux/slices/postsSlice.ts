@@ -42,7 +42,11 @@ const postSlice = createSlice({
     error: "",
     myBlogs: <Array<TPost>>[],
   }),
-  reducers: {},
+  reducers: {
+    clearPosts: (state) => {
+      postAdapter.removeAll(state);
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getPosts.pending, (state) => {
@@ -52,6 +56,7 @@ const postSlice = createSlice({
         getPosts.fulfilled,
         (state, action: { type: any; payload: TPost[] }) => {
           postAdapter.setAll(state, action.payload);
+          state.loading = false;
         }
       )
       .addCase(likePost.fulfilled, (state, action) => {
@@ -69,14 +74,21 @@ const postSlice = createSlice({
       .addCase(updatePost.fulfilled, (state, action) => {
         postAdapter.upsertOne(state, action.payload);
       })
+      .addCase(getMyBlogs.pending, (state, action) => {
+        state.loading = true;
+      })
       .addCase(getMyBlogs.fulfilled, (state, action) => {
-        state.myBlogs = action.payload;
+        postAdapter.setAll(state, action.payload);
+        state.loading = false;
       });
   },
 });
 
 // exporting reducers
 export default postSlice.reducer;
+
+// actions
+export const { clearPosts } = postSlice.actions;
 
 // selectors
 export const { selectAll: getAllPosts, selectById: selectPostById } =
