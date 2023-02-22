@@ -6,13 +6,13 @@ export const nav = [
   },
   {
     id: 2,
-    text: "blog",
+    text: "create",
     url: "/blogs/create",
   },
   {
     id: 3,
-    text: "contact",
-    url: "/contact",
+    text: "my blogs",
+    url: "/blogs/myblogs",
   },
 ];
 export const category = [

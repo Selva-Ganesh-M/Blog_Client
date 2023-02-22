@@ -55,6 +55,7 @@ const Router = () => {
                     path: "blogs",
                     element: user.status ? <HomeLayout /> : <Navigate to="/auth/login" />,
                     children: [
+                        // index route
                         {
                             index: true,
                             element: <Home />
@@ -82,6 +83,11 @@ const Router = () => {
                                     element: <UpdateBlog />
                                 }
                             ]
+                        },
+                        // myblogs
+                        {
+                            path: "myblogs",
+                            element: <Home />
                         },
                         // handle rest
                         {
@@ -136,3 +142,6 @@ const UpdateBlog = Loadable(
 
 
 export default Router
+
+
+

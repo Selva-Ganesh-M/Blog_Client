@@ -32,6 +32,7 @@ const user = (props: Props) => {
   //#region : functions
   const handleLogout = () => {
     dispatch(logout())
+    setIsProfileOpen(false)
     navigate("/auth/login")
   }
 
@@ -56,18 +57,18 @@ const user = (props: Props) => {
                           <img src="https://images.pexels.com/photos/1097456/pexels-photo-1097456.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" />
                         </div>
                         <div className="text">
-                          <h4 className="username">Selva Ganesh M</h4>
-                          <p>tuticorin, TN</p>
+                          <h4 className="username">{user.details.username}</h4>
+                          <p>{user.details.email}</p>
                         </div>
                       </div>
                     </Link>
-                    <Link to="/create">
-                      <button className="box">
+                    <Link to="/blogs/create">
+                      <button className="box" onClick={() => setIsProfileOpen(false)} >
                         <RiImageAddLine className="icon" />
                         <h4>Create Post</h4>
                       </button>
                     </Link>
-                    <button className="box">
+                    {/* <button className="box">
                       <IoSettingsOutline className="icon" />
                       <h4>My Account</h4>
                     </button>
@@ -82,7 +83,7 @@ const user = (props: Props) => {
                     <button className="box">
                       <AiOutlineHeart className="icon" />
                       <h4>Whislist</h4>
-                    </button>
+                    </button> */}
                     <button className="box" onClick={handleLogout} >
                       <BiLogOut className="icon" />
                       <h4>Logout</h4>

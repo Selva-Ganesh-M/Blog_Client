@@ -53,8 +53,8 @@ const CreateBlog = (props: Props) => {
                 cover: imgUrl,
                 userId: user.details._id
             }))
-        // resetForm();
-        // navigate("/blogs")
+        resetForm();
+        navigate("/blogs")
     }
 
 

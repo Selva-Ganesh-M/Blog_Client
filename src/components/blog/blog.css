@@ -33,6 +33,7 @@
   object-fit: cover;
   border-radius: 10px;
   margin-bottom: 20px;
+  background-color: #999;
 }
 
 .blog .icon {

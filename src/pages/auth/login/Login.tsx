@@ -40,6 +40,7 @@ const Login = (props: Props) => {
     //#region : functions
     const handleLogin = async () => {
         await dispatch(loginUser(input))
+        navigate("/blogs")
         setInput({ email: "", password: '' })
     }
 

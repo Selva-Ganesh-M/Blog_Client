@@ -40,6 +40,7 @@ const postSlice = createSlice({
   initialState: postAdapter.getInitialState({
     loading: false,
     error: "",
+    myBlogs: <Array<TPost>>[],
   }),
   reducers: {},
   extraReducers: (builder) => {
@@ -67,6 +68,9 @@ const postSlice = createSlice({
       })
       .addCase(updatePost.fulfilled, (state, action) => {
         postAdapter.upsertOne(state, action.payload);
+      })
+      .addCase(getMyBlogs.fulfilled, (state, action) => {
+        state.myBlogs = action.payload;
       });
   },
 });
@@ -153,6 +157,19 @@ export const updatePost = createAsyncThunk(
       data
     );
 
+    if (res.data.statusCode === 200) {
+      return thunkApi.fulfillWithValue(res.data.payload);
+    } else {
+      return thunkApi.rejectWithValue(res.data.payload);
+    }
+  }
+);
+
+// get my blogs
+export const getMyBlogs = createAsyncThunk(
+  "posts/getMyBlogs",
+  async (id: string, thunkApi) => {
+    const res = await api.get<TResponse<TPost[]>>(`/posts/myblogs/${id}`);
     if (res.data.statusCode === 200) {
       return thunkApi.fulfillWithValue(res.data.payload);
     } else {
