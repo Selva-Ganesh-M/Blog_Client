@@ -18,6 +18,7 @@ const Register = (props: Props) => {
 
     //#region : custom-declarations
     const [input, setInput] = useState<TRegisterData>({ username: "", email: "", password: "" })
+    const [isRegistering, setIsRegistering] = useState<Boolean>(false)
 
     //#endregion
 
@@ -32,7 +33,9 @@ const Register = (props: Props) => {
 
     //#region : functions
     const handleRegister = async () => {
+        setIsRegistering(true)
         await dispatch(registerUser(input))
+        setIsRegistering(false)
         setInput({ username: "", email: "", password: "" })
     }
 
@@ -80,7 +83,25 @@ const Register = (props: Props) => {
                                     return { ...prev, password: e.target.value }
                                 })}
                             />
-                            <button className="button" onClick={handleRegister} >Sign Up</button>
+
+
+                            {
+                                isRegistering ? (<>
+                                    <div style={{
+                                        width: "100%",
+                                        display: "flex",
+                                        justifyContent: "center",
+                                    }}>
+                                        <div className="deleteLoader">
+                                            <div className="loader"></div>
+                                        </div>
+                                    </div>
+                                </>) : (
+                                    <button className="button" onClick={handleRegister} >Sign Up</button>
+                                )
+                            }
+
+
                             {/* login switch */}
                             <span className='loginText' >Already have an account?
                                 Click here to <Link to={"/auth/login"}> Login.</Link></span>

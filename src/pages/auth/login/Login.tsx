@@ -24,6 +24,7 @@ const Login = (props: Props) => {
 
     //#region : custom-declarations
     const [input, setInput] = useState<TLoginData>({ email: "", password: "" })
+    const [isLoggingIn, setIsLogginIn] = useState<Boolean>(false)
 
     //#endregion
 
@@ -39,7 +40,9 @@ const Login = (props: Props) => {
 
     //#region : functions
     const handleLogin = async () => {
+        setIsLogginIn(true)
         await dispatch(loginUser(input))
+        setIsLogginIn(false)
         navigate("/blogs")
         setInput({ email: "", password: '' })
     }
@@ -84,7 +87,23 @@ const Login = (props: Props) => {
                                     return { ...prev, password: e.target.value }
                                 })}
                             />
-                            <button className="button" onClick={handleLogin} >Login</button>
+
+                            {/* login or loading */}
+                            {
+                                isLoggingIn ? (<>
+                                    <div style={{
+                                        width: "100%",
+                                        display: "flex",
+                                        justifyContent: "center",
+                                    }}>
+                                        <div className="deleteLoader">
+                                            <div className="loader"></div>
+                                        </div>
+                                    </div>
+                                </>) : (
+                                    <button className="button" onClick={handleLogin} >Login</button>
+                                )
+                            }
                             {/* login switch */}
                             <span className='loginText' >Don't have an account?
                                 Click here to <Link to={"/auth/register"}> Register.</Link></span>

@@ -8,6 +8,7 @@ import { rootState, TStoreDispatch } from '../../redux/store'
 import "./details.css"
 import { useDispatch, useSelector } from 'react-redux'
 import { getUser } from '../../redux/slices/userSlice'
+import RegisterLoadingScreen from '../../components/loadingScreens/RegisterLoadingScreen'
 
 type Props = {}
 
@@ -21,10 +22,14 @@ const Details = (props: Props) => {
     const currentBlog = useSelector((state: rootState) => selectPostById(state, id!))
     const user = useSelector(getUser)
     const dispatch: TStoreDispatch = useDispatch()
+    const [isDeleting, setIsDeleting] = useState<Boolean>(false)
+    const [isMovingToEditPage, setIsMovingToEditPage] = useState<Boolean>(false)
 
     // custom declarations
     const handleDelete = async (id: string) => {
+        setIsDeleting(true)
         await dispatch(deletePost(id))
+        setIsDeleting(false)
         navigate("/blogs")
     }
 
@@ -33,6 +38,25 @@ const Details = (props: Props) => {
     // side effects
     useEffect(() => {
         if (!id) navigate("/blogs")
+        console.log("id value is:", id);
+        console.log("current blog is:", currentBlog);
+        return () => {
+            console.log("empty effect cleanup");
+        }
+    }, [])
+
+    useEffect(() => {
+        console.log("effect-currentblog:", currentBlog);
+        return () => {
+            console.log("current blog effect cleanup");
+        }
+    }, [currentBlog])
+
+    // cleanup
+    useEffect(() => {
+        return () => {
+            setIsMovingToEditPage(false)
+        }
     }, [])
 
     // return jsx
@@ -56,14 +80,26 @@ const Details = (props: Props) => {
                                     {
                                         user.details._id === currentBlog.userId ? (
                                             <div className="buttons">
-                                                <Link to={`/blogs/update/${currentBlog._id}`}>
+                                                <Link to={`/blogs/update/${currentBlog._id}`} onClick={() => setIsMovingToEditPage(true)}>
                                                     <button className="button">
                                                         <BsPencilSquare />
                                                     </button>
                                                 </Link>
-                                                <button className="button" onClick={() => handleDelete(currentBlog._id)}>
-                                                    <AiOutlineDelete />
-                                                </button>
+                                                {
+                                                    isDeleting ? (<>
+                                                        <div style={{
+                                                            padding: "0px 10px"
+                                                        }}>
+                                                            <div className="deleteLoader">
+                                                                <div className="loader"></div>
+                                                            </div>
+                                                        </div>
+                                                    </>) : (
+                                                        <button className="button" onClick={() => handleDelete(currentBlog._id)}>
+                                                            <AiOutlineDelete />
+                                                        </button>
+                                                    )
+                                                }
                                             </div>
                                         ) : (null)
                                     }
@@ -72,7 +108,9 @@ const Details = (props: Props) => {
                             </div>
                         </div>
                     </section>
-                ) : null
+                ) : (<>
+                    <RegisterLoadingScreen />
+                </>)
             }
         </>
     )

@@ -41,7 +41,7 @@ const Blog = (props: Props) => {
 
         // clean up
         return () => {
-            dispatch(clearPosts())
+            // dispatch(clearPosts())
         }
     }, [location.pathname, user])
     //#endregion

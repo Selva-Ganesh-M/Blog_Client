@@ -44,13 +44,21 @@ const SingleBlog = ({ item: id }: Props) => {
     //jsx rendering
     return (
         // individual blogs
-        <div className="box boxItems" key={item._id} >
+        <div className="box boxItems" style={{
+            height: "100%",
+            display: "flex",
+            flexDirection: "column"
+        }} key={item._id} >
+
+            {/* image */}
             <Link to={`/blogs/view/${item._id}`}>
                 <div className="img">
                     <img src={item.cover} alt="blog image" className='zoomingImg  ' />
                 </div>
             </Link>
-            <div className="details" style={{ flex: 1, height: "auto" }} >
+
+
+            <div className="details" style={{ flexGrow: 1, height: "auto", display: "flex", flexDirection: "column" }} >
 
                 {/* tags */}
                 <div className="tag">
@@ -64,7 +72,7 @@ const SingleBlog = ({ item: id }: Props) => {
                 </Link>
 
                 {/* desctionption */}
-                <p style={{ minHeight: "100.5px" }} >{item.desc.slice(0, 180)}...</p>
+                <p style={{ flexGrow: 1, display: "flex" }} >{item.desc.slice(0, 180)}...</p>
 
 
 
@@ -91,6 +99,7 @@ const SingleBlog = ({ item: id }: Props) => {
                     </div>
                 </div>
             </div>
+
         </div >
     )
 }

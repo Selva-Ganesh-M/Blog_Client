@@ -25,6 +25,7 @@ const UpdateBlog = (props: Props) => {
     const [image, setImage] = useState<any>(null)
     const [imagePer, setImagePer] = useState<number>(0)
     const [imgUrl, setImgUrl] = useState<string>('')
+    const [isUpdating, setIsUpdating] = useState<Boolean>(false)
 
 
     // formik handling
@@ -45,6 +46,7 @@ const UpdateBlog = (props: Props) => {
     };
 
     const handleFormSubmit = async (values: TBlog, { setSubmitting, resetForm }: any) => {
+        setIsUpdating(true)
         console.log({ ...values, imgUrl });
         const data = {
             title: values.title,
@@ -55,6 +57,7 @@ const UpdateBlog = (props: Props) => {
         }
         await dispatch(updatePost(data))
         resetForm();
+        setIsUpdating(false)
         navigate("/blogs")
 
     }
@@ -73,7 +76,7 @@ const UpdateBlog = (props: Props) => {
         uploadTask.on('state_changed',
             (snapshot) => {
                 const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                setImagePer(progress)
+                setImagePer(Math.floor(progress))
                 switch (snapshot.state) {
                     case 'paused':
                         console.log('Upload is paused');
@@ -101,8 +104,9 @@ const UpdateBlog = (props: Props) => {
         image && uploadFile(image)
 
         return () => {
-            setImage("")
             setImagePer(0)
+            setImage(null)
+            setIsUpdating(false)
         }
     }, [image])
 
@@ -197,10 +201,28 @@ const UpdateBlog = (props: Props) => {
 
                                 </div>
 
-                                {/* create button */}
-                                <button type="submit" className='submit-btn' >
-                                    Update
-                                </button>
+                                {/* update button */}
+                                {
+                                    isUpdating ? (
+                                        <div style={{
+                                            width: "100%",
+                                            display: "flex",
+                                            justifyContent: "center"
+                                        }}>
+                                            <div className="deleteLoader">
+                                                <div className="loader"></div>
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        <button type={
+                                            image ?
+                                                imgUrl ? "submit" : "button"
+                                                : "submit"
+                                        } className='submit-btn' >
+                                            Update
+                                        </button>
+                                    )
+                                }
 
 
                             </Form>

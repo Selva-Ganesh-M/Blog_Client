@@ -25,6 +25,7 @@ const CreateBlog = (props: Props) => {
     const [image, setImage] = useState<any>(null)
     const [imagePer, setImagePer] = useState<number>(0)
     const [imgUrl, setImgUrl] = useState<string>('')
+    const [isCreating, setIsCreating] = useState<Boolean>(false)
 
     // formik handling
     const initialValues = {
@@ -44,6 +45,7 @@ const CreateBlog = (props: Props) => {
     };
 
     const handleFormSubmit = async (values: TBlog, { setSubmitting, resetForm }: any) => {
+        setIsCreating(true)
         console.log({ ...values, imgUrl, userId: user.details._id });
         await dispatch(createPost(
             {
@@ -54,6 +56,7 @@ const CreateBlog = (props: Props) => {
                 userId: user.details._id
             }))
         resetForm();
+        setIsCreating(true)
         navigate("/blogs")
     }
 
@@ -71,7 +74,7 @@ const CreateBlog = (props: Props) => {
         uploadTask.on('state_changed',
             (snapshot) => {
                 const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                setImagePer(progress)
+                setImagePer(Math.floor(progress))
                 switch (snapshot.state) {
                     case 'paused':
                         console.log('Upload is paused');
@@ -94,12 +97,14 @@ const CreateBlog = (props: Props) => {
         );
     }
 
+
+    // uploading img to firebase
     useEffect(() => {
-        // uploading img to firebase
         image && uploadFile(image)
 
         return () => {
             setImage("")
+            setImagePer(0)
             setImagePer(0)
         }
     }, [image])
@@ -196,9 +201,23 @@ const CreateBlog = (props: Props) => {
                                 </div>
 
                                 {/* create button */}
-                                <button type="submit" className='submit-btn' >
-                                    Create
-                                </button>
+                                {
+                                    isCreating ? (
+                                        <div style={{
+                                            width: "100%",
+                                            display: "flex",
+                                            justifyContent: "center"
+                                        }}>
+                                            <div className="deleteLoader">
+                                                <div className="loader"></div>
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        <button type={imgUrl ? "submit" : "button"} className='submit-btn' >
+                                            Create
+                                        </button>
+                                    )
+                                }
 
 
                             </Form>
