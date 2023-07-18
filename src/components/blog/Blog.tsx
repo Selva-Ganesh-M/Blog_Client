@@ -77,6 +77,7 @@ const Blog = (props: Props) => {
                                     }}>
                                         <button
                                             className='button'
+                                            onClick={() => navigate("/blogs/create")}
                                             style={{ padding: "1rem" }}>
                                             Create your first blog
                                         </button>
